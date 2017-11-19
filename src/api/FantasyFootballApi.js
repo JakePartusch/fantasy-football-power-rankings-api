@@ -2,7 +2,16 @@ const axios = require('axios');
 const { values, cloneDeep } = require('lodash');
 
 module.exports = class FantasyFootballApi {
-    constructor() {}
+    constructor() {
+        this.cookies = "";
+        axios.interceptors.request.use(
+            config => {
+              config.headers.Cookie = this.cookies;
+              return config;
+            },
+            error => Promise.reject(error)
+          );
+    }
 
     async getPowerRankings(leagueId, seasonId) {
         const userData = await this.getUserData(leagueId, seasonId);
@@ -24,6 +33,18 @@ module.exports = class FantasyFootballApi {
             })
         });
         return rankings;
+    }
+
+    async getApiKey() {
+        const response = await axios.post('https://registerdisney.go.com/jgc/v5/client/ESPN-ESPNCOM-PROD/api-key?langPref=en-US');
+        return response.headers['api-key'];
+    }
+
+    async login(loginValue, password, apiKey) {
+        const request = { loginValue, password };
+        const headers = {'authorization' : `APIKEY ${apiKey}`, 'content-type': "application/json"}
+        const response = await axios.post('https://ha.registerdisney.go.com/jgc/v5/client/ESPN-ESPNCOM-PROD/guest/login?langPref=en-US', request, {headers}) 
+        this.cookies = `espn_s2=${response.data.data.s2}; SWID=${response.data.data.profile.swid};`
     }
     
     async getWeeklyWinsForSeason(leagueId, seasonId) {
