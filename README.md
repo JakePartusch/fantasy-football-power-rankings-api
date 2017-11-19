@@ -1,4 +1,4 @@
-# get-espn-fantasy-football-power-rankings
+# Fantasy Football Power Rankings API
 Google Cloud Function to retrieve fantasy football power rankings data
 
 # Example
@@ -7,7 +7,9 @@ Google Cloud Function to retrieve fantasy football power rankings data
 ```
 {
 	"leagueId": "12345",
-	"seasonId": "2017"
+	"seasonId": "2017",
+	"username": "johnsmith@gmail.com", //required only for private leagues
+	"password": "password1" //required only for private leagues
 }
 ```
 
