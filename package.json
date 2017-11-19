@@ -1,0 +1,30 @@
+{
+  "name": "get-espn-fantasy-football-power-rankings",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -r dist && babel src --out-dir dist/src && cp package.json dist && cp serverless.yml dist",
+    "deploy": "cd dist && serverless deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "8.x"
+  },
+  "dependencies": {
+    "axios": "^0.17.0",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "serverless": "^1.24.1",
+    "serverless-google-cloudfunctions": "^1.1.0"    
+  }
+}
